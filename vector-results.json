@@ -1,0 +1,28 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "dimensions": 384,
+  "documents": 6,
+  "query": "How can I monitor equipment temperature and detect heat problems?",
+  "time_filter": "last 7 days",
+  "metadata_filter": {
+    "category": "iot"
+  },
+  "distance": "cosine",
+  "results": [
+    {
+      "document_id": "sensor-alert",
+      "category": "iot",
+      "similarity": 0.7517
+    },
+    {
+      "document_id": "sensor-metrics",
+      "category": "iot",
+      "similarity": 0.4671
+    },
+    {
+      "document_id": "database",
+      "category": "iot",
+      "similarity": 0.1858
+    }
+  ]
+}

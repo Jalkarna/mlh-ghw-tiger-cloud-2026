@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tiger": {
+      "command": "tiger",
+      "args": ["mcp", "start"],
+      "env": {"TIGER_READ_ONLY": "all"}
+    }
+  }
+}

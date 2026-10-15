@@ -1,0 +1,10 @@
+{
+  "source": "wss://ws.kraken.com/v2",
+  "symbol": "BTC/USD",
+  "captured_at": "2026-10-15T10:34:04.200327+00:00",
+  "snapshot_events": 50,
+  "live_update_events": 10,
+  "database_rows": 60,
+  "earliest_trade": "2026-10-15 10:33:29.328388+00:00",
+  "latest_trade": "2026-10-15 10:34:02.940404+00:00"
+}
