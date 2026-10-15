@@ -8,6 +8,14 @@ ORDER BY hypertable_name;
 SELECT count(*) AS readings, count(DISTINCT sensor_id) AS sensors
 FROM mlh_ghw_2026.sensor_data;
 
+-- Join relational sensor metadata and aggregate into half-hour windows.
+SELECT s.location,time_bucket('30 minutes',d.time) AS period,
+       round(avg(d.temperature)::numeric,2) AS avg_temperature,
+       round(avg(d.cpu)::numeric,3) AS avg_cpu
+FROM mlh_ghw_2026.sensor_data d
+JOIN mlh_ghw_2026.sensors s ON s.id=d.sensor_id
+GROUP BY s.location,period ORDER BY period DESC,s.location LIMIT 4;
+
 -- Reconcile the hourly aggregate with its source data.
 SELECT count(*) AS hourly_groups, sum(reading_count) AS readings
 FROM mlh_ghw_2026.sensor_hourly;

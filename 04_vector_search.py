@@ -38,6 +38,11 @@ def main():
             conn.execute('INSERT INTO mlh_ghw_2026.activity_embeddings VALUES (now(),%s,%s,%s,%s::vector)',
                          (id,category,text,vector))
         conn.execute('CREATE INDEX IF NOT EXISTS activity_embedding_cosine_idx ON mlh_ghw_2026.activity_embeddings USING hnsw (embedding vector_cosine_ops)')
+        conn.execute('''CREATE TABLE IF NOT EXISTS mlh_ghw_2026.search_queries (
+          id text PRIMARY KEY,question text NOT NULL,embedding vector(384) NOT NULL)''')
+        conn.execute('''INSERT INTO mlh_ghw_2026.search_queries VALUES (%s,%s,%s::vector)
+          ON CONFLICT (id) DO UPDATE SET question=EXCLUDED.question,embedding=EXCLUDED.embedding''',
+          ('equipment-heat',QUERY,json.dumps(query.tolist())))
         rows=conn.execute('''SELECT document_id,category,round((1-(embedding <=> %s::vector))::numeric,4) AS similarity
             FROM mlh_ghw_2026.activity_embeddings
             WHERE time>=now()-interval '7 days' AND category='iot'
